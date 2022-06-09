@@ -1,0 +1,40 @@
+version: 2
+
+sources:
+  - name: greenery
+    schema: public
+    database: dbt
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    # freshness:
+    #   warn_after: {count: 24, period: hour}
+    #   error_after: {count: 48, period: hour}
+
+    tables:
+      - name: addresses 
+        description: Contains address information about each delivery
+      
+      - name: events
+        loaded_at_field: created_at
+        description: Contains events on the shopping platform
+      
+      - name: orders
+        loaded_at_field: created_at
+        description: Contains order information about each order on the platform
+      
+      - name: order_items
+        description: contians order id and product id and the quantity of the products of the orders
+            
+      - name: products
+        description: contians products information, including product name , price and inventory
+      
+      - name: promos
+        description: contians promo information, including discount, and promo status
+      
+      - name: users
+        loaded_at_field: created_at
+        description: contains user personal connect information, such as name, email, phone_number etc.

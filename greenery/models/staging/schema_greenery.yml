@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: stg_greenery__addresses
+    description: address information about each delivery such as address,zipcode,state,country.
+
+    columns:
+      - name: address_id 
+        description: This is a unique identifier for the delivery address 
+        test: 
+          - unique
+          - not_null
+
+  - name: stg_greenery__events
+    description: This table contains clickstream events from the online shopping platform
+
+    columns:
+      - name: event_id
+        description: This is a unique identifier for the event on the platform
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_greenery__orders
+    description: information about each shopping order, including user_id, promo_id, address_id, order created time, order cost, shipping cost, total cost, and shipping information
+    
+    columns:
+      - name: order_id
+        description: This is a unique identifier for the order on the platform
+        tests:
+          - unique
+          - not_null
+        
+      
+  - name: stg_greenery__order_items
+    description:  information number of units of the product in each order, such as order id, product id and quantity of products
+    
+    columns:
+      - name: order_id
+        description: This is a identifier for the order on the platform
+        tests:
+          - not_null
+
+      - name: product_id
+        description: This is a identifier for a single item in this order
+        tests:
+          - not_null
+      
+  
+  - name: stg_greenery__products
+    description:  information about products on the platform, such as name, price, and inventory
+
+    columns:
+      - name: product_id
+        description: This is a unique identifier for the product on the platform
+        tests:
+          - unique
+          - not_null
+
+
+  - name: stg_greenery__promos
+    description: information about each promos on the platform, such as discount, promo code status
+    
+    columns:
+      - name: promo_id
+        description: This is a unique identifier for the promocode on the platform
+        tests:
+          - unique
+          - not_null   
+
+  - name: stg_greenery__users
+    description: personal connection information of the user on the shopping platform, such as name, email, phone number, address_id, user created time, user information updated time
+
+    columns:
+      - name: user_id
+        description: UUID for each unique user on platform
+        tests:
+          - unique
+          - not_null 
+      
