@@ -1,6 +1,6 @@
-{{config(
-    materialized='view'
-    )}}
+{{ config (
+    materialized = 'view'
+    ) }}
 
 with address_source as (
     
@@ -9,15 +9,15 @@ with address_source as (
 )
 ,
 renamed as (
-    select
-    --primary KEY
-    address_id,
-    --info
-    address,
-    zipcode
-    state,
-    country
-from address_source
+        select
+            --primary KEY
+            address_id as address_id,
+            --info
+            address,
+            zipcode,
+            state,
+            country
+        from address_source
 )
 select * from renamed
 

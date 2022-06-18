@@ -1,6 +1,6 @@
-{{config(
-    materialized='view'
-    )}}
+{{ config(
+    materialized = 'view'
+    ) }}
     
 with event_source as (
     
@@ -9,18 +9,18 @@ with event_source as (
 )
 ,
 renamed as (
-    select
-    --primary KEY
-    event_id,
-    --foreign KEY
-    session_id,
-    user_id,
-    product_id,
-    --info
-    page_url,
-    event_type,
-    --snapshot date
-    created_at
-from event_source
+        select
+            --primary KEY
+            event_id,
+            --foreign KEY
+            session_id,
+            user_id,
+            product_id,
+            --info
+            page_url,
+            event_type,
+            --snapshot date
+            created_at as event_created_at_utc
+        from event_source
 )
 select * from renamed

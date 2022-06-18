@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: int_order_delivery_agg
+    columns:
+      - name: order_id 
+        description: This is an unique identifier for the order
+        test: 
+          - not_null
+          - unique
+      - name: delivery_time_days
+        test:
+          - non_negative
+          
+  - name: int_order_product_agg
+    columns:
+      - name: order_id 
+        description: This is an unique identifier for the order
+        test: 
+          - not_null
+          - unique
+      - name: total_product_ordered
+        test:
+          - non_negative
+
+
+  - name: int_user_promos_agg
+    columns:
+      - name: user_id 
+        description: This is an unique identifier for user
+        test: 
+          - not_null
+          - unique
+      - name: active_code_count
+        test:
+          - non_negative
+      - name: total_abs_discount
+        test:
+          - non_negative

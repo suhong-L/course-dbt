@@ -17,10 +17,10 @@ assume the on-line shopping platform runs 24/7. The time for order being created
 ```
     with unique_orders_within_Total_order_time as (
         select count (distinct order_id) as total_unique_order_count
-            , min(order_created_at) as first_order_created_time
-            , max(order_created_at) as last_order_created_time
-            , ROUND((extract (EPOCH from (max(order_created_at)-min(order_created_at)))/3600)::Numeric, 0) as total_order_hours
-        from dbt_suhong_l.stg_greenery__orders
+            , min(order_created_at_utc) as first_order_created_time
+            , max(order_created_at_utc) as last_order_created_time
+            , ROUND((extract (EPOCH from (max(order_created_at_utc)-min(order_created_at_utc)))/3600)::Numeric, 0) as total_order_hours
+        from dbt_suhong_l.base_greenery__orders
     )
     select round(total_unique_order_count/total_order_hours,2) as avg_order_per_hour
     from unique_orders_within_Total_order_time
@@ -32,8 +32,8 @@ assume the on-line shopping platform runs 24/7. The time for order being created
 ```
     with unique_delivered_order as (
                     select distinct order_id
-                        , (extract (EPOCH from (order_delivered_at - order_created_at))/3600) as delivery_time_in_hour  
-                    from dbt_suhong_l.stg_greenery__orders
+                        , (extract (EPOCH from (order_delivered_at_utc - order_created_at_utc))/3600) as delivery_time_in_hour  
+                    from dbt_suhong_l.base_greenery__orders
                     where order_delivered_at is not null -- only care about the delivered order
     )
     select round(cast(avg(delivery_time_in_hour)/24 as Numeric),2) from unique_delivered_order
@@ -56,7 +56,7 @@ Note: you should consider a purchase to be a single order. In other words, if a 
                   , case count(distinct order_id) when 1 then '1 purchanse'
                                                   when 2 then '2 purchases'
                     else '3+ purchases' end as purchase_number
-            from dbt_suhong_l.stg_greenery__orders
+            from dbt_suhong_l.base_greenery__orders
             where user_id is not null -- ignore the case when user_id is null
             group by  user_id
     )
@@ -76,8 +76,8 @@ assume the on-line shopping platform runs 24/7. the time for event happen is con
     with hourly_unique_session as (
              select date_trunc('hour',created_at) as event_hour
                   , count(distinct session_id) as unique_session_count
-                  , min(created_at) as first_event_time
-                  , max(created_at) as last_event_time
+                  , min(event_created_at_utc) as first_event_time
+                  , max(event_created_at_utc) as last_event_time
             from dbt_suhong_l.stg_greenery__events
             group by date_trunc('hour',created_at)
     )

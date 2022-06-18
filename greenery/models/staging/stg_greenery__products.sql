@@ -1,6 +1,6 @@
-{{config(
-    materialized='view'
-    )}}
+{{ config(
+    materialized = 'view'
+    ) }}
 
 with product_source as (
     

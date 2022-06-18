@@ -1,6 +1,6 @@
-{{config(
-    materialized='view'
-    )}}
+{{ config(
+    materialized = 'view'
+    ) }}
 
 with user_source as (
     
@@ -20,8 +20,8 @@ renamed as (
         email,
         phone_number,
         --snapshot date
-        created_at,
-        updated_at
+        created_at as user_created_at_utc,
+        updated_at as user_updated_at_utc
     from user_source
 )
 select * from renamed
