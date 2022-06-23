@@ -35,6 +35,15 @@ models:
   greenery:
     # Config indicated by + and applies to all files under models/example/
     marts:
+      +materialized: tables
+    intermediate:
       +materialized: view
     staging:
       +materialized: view
+  
+  post-hook:
+    - "GRANT SELECT ON {{ this }} TO reporting"
+
+on-run-end:
+  # - "GRANT USAGE ON SCHEMA {{ target.schema }} TO reporting"
+  - "{{grant_select('reporting')}}"

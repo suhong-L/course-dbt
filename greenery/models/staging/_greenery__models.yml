@@ -7,7 +7,7 @@ models:
     columns:
       - name: address_id 
         description: This is a unique identifier for the delivery address 
-        test: 
+        tests: 
           - unique
           - not_null
 
@@ -26,7 +26,7 @@ models:
           - accepted_values: 
                values: ['add_to_cart','checkout','page_view','package_shipped']
 
-  - name: base_greenery__orders
+  - name: stg_greenery__orders
     description: information about each shopping order, including user_id, promo_id, address_id, order created time, order cost, shipping cost, total cost, and shipping information
     
     columns:
@@ -71,7 +71,7 @@ models:
               values: ['shipped', 'preparing', 'delivered']
         
       
-  - name: base_greenery__order_items
+  - name: stg_greenery__order_items
     description:  information number of units of the product in each order, such as order id, product id and quantity of products
     
     columns:
@@ -87,7 +87,7 @@ models:
 
       - name: order_quantity
         description: quantity of products in each order
-        test:
+        tests:
           - non_negative
       
   

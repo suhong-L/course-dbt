@@ -5,7 +5,7 @@ models:
     columns:
       - name: order_id 
         description: This is an unique identifier for the order
-        test: 
+        tests: 
           - not_null
           - unique
       - name: delivery_time_days
@@ -16,24 +16,30 @@ models:
     columns:
       - name: order_id 
         description: This is an unique identifier for the order
-        test: 
+        tests: 
           - not_null
           - unique
       - name: total_product_ordered
-        test:
+        tests:
           - non_negative
 
 
-  - name: int_user_promos_agg
+  - name: int_user_address_joined
     columns:
       - name: user_id 
-        description: This is an unique identifier for user
-        test: 
+        description: This is an unique identifier for the user
+        tests: 
           - not_null
           - unique
-      - name: active_code_count
-        test:
+
+  - name: int_session_events_agg
+    columns:
+      - name: session_id 
+        description: This is a identifier for the session
+        tests: 
+          - not_null
+      - name: session_length_min
+        tests:
           - non_negative
-      - name: total_abs_discount
-        test:
-          - non_negative
+
+

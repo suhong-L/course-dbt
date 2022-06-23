@@ -20,7 +20,7 @@ sources:
         columns:
           - name: address_id 
             description: This is a unique identifier for the delivery address 
-            test: 
+            tests: 
               - unique
               - not_null
       
@@ -103,7 +103,7 @@ sources:
 
           - name: quantity
             description: quantity of products in each order
-            test:
+            tests:
               - non_negative
             
       - name: products

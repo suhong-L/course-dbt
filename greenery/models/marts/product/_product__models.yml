@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: page_view
+    columns:
+      - name: session_id 
+        description: This is an identifier for session
+        tests:
+          - not_null
+
+  - name: products
+    columns:
+      - name: product_id 
+        description: This is an unique identifier for product
+        tests:
+          - not_null
+          - unique  

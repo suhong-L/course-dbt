@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: orders
+    columns:
+      - name: order_id 
+        description: This is an unique identifier for the order
+        tests:
+          - unique
+          - not_null
+  
