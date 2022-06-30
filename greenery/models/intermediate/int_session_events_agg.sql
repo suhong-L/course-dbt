@@ -6,12 +6,11 @@ with session_event_agg as (
     {%- set event_types = dbt_utils.get_column_values(table = ref('stg_greenery__events'), column='event_type')  -%}
     select session_id
           ,user_id
-          ,event_created_at_utc
           {% for event_type in event_types %}
           ,sum(case when event_type = '{{event_type}}' then 1 else 0 end) as {{event_type}}
           {% endfor %}
     from {{ ref('stg_greenery__events') }} e
-    group by session_id, user_id, event_created_at_utc
+    group by session_id, user_id
 )
 ,
 session_duration as (
